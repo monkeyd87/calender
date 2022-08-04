@@ -55,18 +55,18 @@ for(let i = 0; i<9;i++) {
 
 let rows =document.querySelectorAll('.row');
 let time = 8
-for(let row of  rows){
+for(let row = 0; row < rows.length;row++){
     time ++
-    row.querySelector('textarea').placeholder = localData[moment().hour(time).minute(0).format('hA')]? localData[moment().hour(time).minute(0).format('hA')]:''
-    row.querySelector('.hour').textContent =  moment().hour(time).minute(0).format('hA')
+    rows[row].querySelector('textarea').placeholder = localData[moment().hour(time).minute(0).format('hA')]? localData[moment().hour(time).minute(0).format('hA')]:''
+    rows[row].querySelector('.hour').textContent =  moment().hour(time).minute(0).format('hA')
     if(moment().isBefore( moment().hour(time))){
-        row.querySelector('textarea').className += ' future'
+        rows[row].querySelector('textarea').className += ' future'
     }
     if(moment().isSame( moment().hour(time))){
-        row.querySelector('textarea').className += ' present'
+        rows[row].querySelector('textarea').className += ' present'
     }
     if(moment().isAfter( moment().hour(time))){
-        row.querySelector('textarea').className += ' past'
+        rows[row].querySelector('textarea').className += ' past'
     }
     
 
