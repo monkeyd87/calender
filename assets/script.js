@@ -1,16 +1,26 @@
+
 let currentDayEl = $('#currentDay');
+let todaysdate = moment().format('LL')
+let localData = JSON.parse(localStorage.getItem('data'));
+let data = localData = JSON.parse(localStorage.getItem('data'))
 
-currentDayEl.text(moment().format('LL'));
 
-let containerel = document.querySelector('.container-fluid')
 
+currentDayEl.text(todaysdate);
+
+let containerel = document.querySelector('.container-fluid');
+
+function save(time,content){
+    data[time] = content
+    localStorage.setItem('data',JSON.stringify(data))
+}
 function makeElement(element){
     let row = document.createElement('div');
     row.setAttribute('class','row')
     
 
     let col1 = document.createElement('div');
-    col1.setAttribute('class','col-1 hour')
+    col1.setAttribute('class','col-1 hour flex')
 
     let col2 = document.createElement('textarea');
     col2.setAttribute('class','col')
@@ -21,7 +31,11 @@ function makeElement(element){
     icon.setAttribute('class',"glyphicon glyphicon-floppy-disk");
 
     col3.addEventListener('click',event=>{
-        console.log(event.target)
+      let hour =  event.target.parentElement.querySelector('.hour').textContent;
+      let content = event.target.parentElement.querySelector('textarea').value
+       save(hour,content)
+      console.log(data)
+       
     })
     col3.appendChild(icon)
     row.appendChild(col1)
@@ -42,17 +56,19 @@ let rows =document.querySelectorAll('.row');
 let time = 8
 for(let row of  rows){
     time ++
+    row.querySelector('textarea').placeholder = localData[moment().hour(time).minute(0).format('hA')]? localData[moment().hour(time).minute(0).format('hA')]:''
     row.querySelector('.hour').textContent =  moment().hour(time).minute(0).format('hA')
     if(moment().isBefore( moment().hour(time))){
-        row.querySelector('textarea').style.backgroundColor ='green'
+        row.querySelector('textarea').className += ' future'
     }
     if(moment().isSame( moment().hour(time))){
-        row.querySelector('textarea').style.backgroundColor ='red'
+        row.querySelector('textarea').className += ' present'
     }
     if(moment().isAfter( moment().hour(time))){
-        row.querySelector('textarea').style.backgroundColor ='grey'
+        row.querySelector('textarea').className += ' past'
     }
-    
     
 
 }
+
+
