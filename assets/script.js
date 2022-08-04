@@ -27,8 +27,9 @@ function makeElement(element){
 
     let col3 = document.createElement('div');
     col3.setAttribute('class','col-1 saveBtn');
-    let icon  = document.createElement("span");
-    icon.setAttribute('class',"glyphicon glyphicon-floppy-disk");
+    let icon  = document.createElement("i");
+    icon.setAttribute('class','fa-solid fa-message-plus');
+    col3.appendChild(icon)
 
     col3.addEventListener('click',event=>{
       let hour =  event.target.parentElement.querySelector('.hour').textContent;
