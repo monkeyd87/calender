@@ -3,6 +3,7 @@ let currentDayEl = $('#currentDay');
 let todaysdate = moment().format('LL')
 let localData = JSON.parse(localStorage.getItem('data'));
 let data = localData = JSON.parse(localStorage.getItem('data'))
+console.log('running')
 
 
 
