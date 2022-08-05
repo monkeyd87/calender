@@ -1,21 +1,41 @@
 
 let currentDayEl = $('#currentDay');
 let todaysdate = moment().format('LL')
-let localData = JSON.parse(localStorage.getItem('data'));
-let data = {}?localData:{}
-let time = 0
+let time = 9
+let localData =localStorage.data?JSON.parse(localStorage.data):localStorage.setItem('data',JSON.stringify({'name':'dennis'}))
+console.dir(localData)
+
 
 
 
 currentDayEl.text(todaysdate);
 
 let containerel = document.querySelector('.container-fluid');
-
+// save function
 function save(time,content){
     
-    data[time] = content
-    localStorage.setItem('data',JSON.stringify(data))
+    if(localStorage.data){
+        data = JSON.parse(localStorage.getItem('data'))
+        data[time]=content
+        localStorage.setItem('data',JSON.stringify(data))
+        // alert('if')
+        
+    }else{
+        
+        let data = {}
+         data[time]=content
+         localStorage.setItem('data',JSON.stringify(data))
+         alert('else')
+    
+    }
+    // localStorage.setItem('data',JSON.stringify(data))
+    
+    // data[time] = content
+    // localStorage.setItem('data',JSON.stringify(data))
 }
+
+
+
 function makeElement(element){
     let row = document.createElement('div');
     row.setAttribute('class','row')
@@ -27,7 +47,7 @@ function makeElement(element){
 
     let col2 = document.createElement('textarea');
     col2.setAttribute('class','col past')
-    col2.placeholder = localData[col1.textContent]?localData[col1.textContent]:""
+    col2.placeholder = localData[col1.textContent]?localData[col1.textContent]:''
 
    
     let col3 = document.createElement('div');
@@ -38,8 +58,11 @@ function makeElement(element){
 
     col3.addEventListener('click',event=>{
       let hour =  event.target.parentElement.querySelector('.hour').textContent;
-      let content = event.target.parentElement.querySelector('textarea').value
-      save(hour,content)
+      let content = event.target.parentElement.querySelector('textarea').value;
+      save(hour,content);
+      conttent = 0
+      
+      
       
        
     })
@@ -47,6 +70,7 @@ function makeElement(element){
     row.appendChild(col1)
     row.appendChild(col2)
     row.appendChild(col3)
+    time++
 
     
 
@@ -60,11 +84,11 @@ function makeElement(element){
         col2.setAttribute('class','col present')
     }
 
-    time++
+    
 
 }
 
-for(let i = 0; i<12;i++) {
+for(let i = 0; i<9;i++) {
     makeElement(containerel)
     
 }
