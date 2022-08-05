@@ -2,8 +2,8 @@
 let currentDayEl = $('#currentDay');
 let todaysdate = moment().format('LL')
 let time = 9
-let localData =localStorage.data?JSON.parse(localStorage.data):localStorage.setItem('data',JSON.stringify({'name':'dennis'}))
-console.dir(localData)
+let localData =localStorage.data?JSON.parse(localStorage.data):localStorage.setItem('data',JSON.stringify({}))
+console.log(localData)
 
 
 
@@ -25,7 +25,7 @@ function save(time,content){
         let data = {}
          data[time]=content
          localStorage.setItem('data',JSON.stringify(data))
-         alert('else')
+        //  alert('else')
     
     }
     // localStorage.setItem('data',JSON.stringify(data))
@@ -47,7 +47,7 @@ function makeElement(element){
 
     let col2 = document.createElement('textarea');
     col2.setAttribute('class','col past')
-    col2.placeholder = localData[col1.textContent]?localData[col1.textContent]:''
+    col2.placeholder = localData?localData[col1.textContent]!=undefined?localData[col1.textContent]:"":''
 
    
     let col3 = document.createElement('div');
